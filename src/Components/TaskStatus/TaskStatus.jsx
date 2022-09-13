@@ -1,38 +1,43 @@
-import React from 'react'
-import Task from '../Task/Task'
+import React from "react";
+import "./TaskStatus.css";
+import Task from "../Task/Task"
 
-const TaskStatus = (props) => {
-    const {status,tasks,addTask,deleteTask,addEmptyTask,moveTask }=props
-    let taskList,tasksForStatus;
-    function handleAddEmpty(){
-        addEmptyTask(status);
-    }
-    if(tasks){
-        tasksForStatus=tasks.filter((task)=>{
-            return task.status===status;
-        })
-    }
-    if(tasksForStatus){
-        taskList=tasksForStatus.map((task)=>{
-            return(
-                <Task 
-                    addTask={(task)=>addTask(task)}
-                    deleteTask={(id)=>deleteTask(id)}
-                    moveTask={(id,status)=>moveTask(id,status)}
-                    key={task.id}
-                    task={task}
-                />
-            )
-        })
-    }
+export default function StatusLine(props) {
+  const { status, tasks, addTask, deleteTask, addEmptyTask, moveTask } = props;
+
+  let taskList, tasksForStatus;
+
+  function handleAddEmpty() {
+    addEmptyTask(status);
+  }
+
+  if (tasks) {
+    tasksForStatus = tasks.filter((task) => {
+      return task.status === status;
+    });
+  }
+
+  if (tasksForStatus) {
+    taskList = tasksForStatus.map((task) => {
+      return (
+        <Task
+          addTask={(task) => addTask(task)}
+          deleteTask={(id) => deleteTask(id)}
+          moveTask={(id, status) => moveTask(id, status)}
+          key={task.id}
+          task={task}
+        />
+      );
+    });
+  }
+
   return (
-    <div className="taskStatus">
-        <h3>{status}</h3>
-        {taskList}
-        <button onClick={handleAddEmpty} className='button  addTask'> + </button>
-
+    <div className="tstatus">
+      <h3>{status}</h3>
+      {taskList}
+      <button onClick={handleAddEmpty} className="button addTask">
+        +
+      </button>
     </div>
-  )
+  );
 }
-
-export default TaskStatus 
